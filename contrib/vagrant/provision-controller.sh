@@ -36,7 +36,7 @@ fi
 #################
 node_name=deis-controller
 run_list="recipe[deis::controller]"
-chef_version=11.6.2
+chef_version=11.10.4
 
 ################
 # SSH settings #

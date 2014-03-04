@@ -40,20 +40,23 @@ while [ ! -e /var/run/docker.sock ] ; do
 done
 
 # pull current docker images
-docker pull deis/logger:v0.1.1
-docker pull deis/server:v0.1.1
-docker pull deis/worker:v0.1.1
-docker pull deis/builder:v0.1.2
-docker pull deis/database:v0.1.1
-docker pull deis/registry:v0.1.2
-docker pull deis/discovery:v0.1.0
-docker pull deis/cache:v0.1.1
-docker pull deis/data
+docker pull deis/data:latest
+docker pull deis/discovery:latest
+docker pull deis/registry:latest
+docker pull deis/cache:latest
+docker pull deis/logger:latest
+docker pull deis/database:latest
+docker pull deis/server:latest
+docker pull deis/worker:latest
+docker pull deis/builder:latest
 
 # install chef 11.x deps
 apt-get install -yq ruby1.9.1 ruby1.9.1-dev make
 update-alternatives --set ruby /usr/bin/ruby1.9.1
 update-alternatives --set gem /usr/bin/gem1.9.1
+
+# install chef
+gem install chef --no-ri --no-rdoc
 
 # install mDNS support
 apt-get install avahi-daemon -yq
@@ -83,7 +86,7 @@ rm -f /var/lib/dhcp3/*
 rm -rf /etc/udev/rules.d/70-persistent-net.rules
 mkdir /etc/udev/rules.d/70-persistent-net.rules
 rm -rf /dev/.udev/
-rm /lib/udev/rules.d/75-persistent-net-generator.rules
+rm -f /lib/udev/rules.d/75-persistent-net-generator.rules
 
 # flush writes to block storage
 sync
